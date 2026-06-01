@@ -7,7 +7,7 @@ def send_booking_email(booking_data):
 
     try:
 
-html = f"""
+       html = f"""
 <!DOCTYPE html>
 <html>
 <head>
@@ -203,7 +203,7 @@ This inquiry was submitted from the BagDrop website.
             json={
                 "from": "BagDrop <booking@bagdrop.co>",
                 "to": ["info@bagdrop.co"],
-               "subject": f"🎒 New Booking Inquiry - {booking_data.get('fullName')}"
+               "subject": f"🎒 New Booking Inquiry - {booking_data.get('fullName')}",
                 "html": html
             }
         )
