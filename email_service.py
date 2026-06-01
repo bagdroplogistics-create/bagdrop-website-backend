@@ -7,52 +7,192 @@ def send_booking_email(booking_data):
 
     try:
 
-        html = f"""
-        <html>
-        <body style="font-family:Arial,sans-serif; line-height:1.6;">
+html = f"""
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>BagDrop Booking Inquiry</title>
+</head>
 
-            <h2 style="color:#ea580c;">
-                🎒 New BagDrop Booking Inquiry
-            </h2>
+<body style="margin:0;padding:0;background:#f4f4f4;font-family:Arial,sans-serif;">
 
-            <hr>
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;padding:20px 0;">
+<tr>
+<td align="center">
 
-            <h3>Customer Details</h3>
+<table width="650" cellpadding="0" cellspacing="0"
+style="
+background:#ffffff;
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 2px 10px rgba(0,0,0,0.08);
+">
 
-            <p><strong>Name:</strong> {booking_data.get('fullName')}</p>
-            <p><strong>Phone:</strong> {booking_data.get('phone')}</p>
-            <p><strong>Email:</strong> {booking_data.get('email')}</p>
+<tr>
+<td
+style="
+background:#ff6b35;
+padding:35px;
+text-align:center;
+color:#ffffff;
+"
+>
+<h1 style="margin:0;font-size:34px;font-weight:bold;">
+BAGDROP
+</h1>
 
-            <hr>
+<p style="margin-top:10px;font-size:14px;">
+BAG. BOX. DELIVERED.
+</p>
+</td>
+</tr>
 
-            <h3>Pickup Details</h3>
+<tr>
+<td style="padding:30px;">
 
-            <p><strong>Pickup Location:</strong> {booking_data.get('pickupLocation')}</p>
-            <p><strong>Pickup Address:</strong> {booking_data.get('pickupAddress')}</p>
+<h2
+style="
+color:#ff6b35;
+margin-top:0;
+margin-bottom:15px;
+"
+>
+🎒 New Booking Inquiry Received
+</h2>
 
-            <hr>
+<div
+style="
+background:#fff7f3;
+border:1px solid #ffd5c4;
+padding:15px;
+border-radius:8px;
+margin-bottom:25px;
+"
+>
+A new booking inquiry has been submitted through the BagDrop website.
+</div>
 
-            <h3>Drop Details</h3>
+<h3 style="color:#ff6b35;">
+Customer Details
+</h3>
 
-            <p><strong>Drop Location:</strong> {booking_data.get('dropOffLocation')}</p>
-            <p><strong>Drop Address:</strong> {booking_data.get('dropOffAddress')}</p>
+<table width="100%" cellpadding="8" cellspacing="0"
+style="background:#fafafa;border-radius:8px;">
+<tr>
+<td width="35%"><strong>Name</strong></td>
+<td>{booking_data.get('fullName')}</td>
+</tr>
 
-            <hr>
+<tr>
+<td><strong>Phone</strong></td>
+<td>{booking_data.get('phone')}</td>
+</tr>
 
-            <h3>Baggage Details</h3>
+<tr>
+<td><strong>Email</strong></td>
+<td>{booking_data.get('email')}</td>
+</tr>
+</table>
 
-            <p><strong>Number of Bags:</strong> {booking_data.get('numberOfBags')}</p>
+<br>
 
-            <hr>
+<h3 style="color:#ff6b35;">
+Pickup Details
+</h3>
 
-            <h3>Schedule</h3>
+<table width="100%" cellpadding="8" cellspacing="0"
+style="background:#fafafa;border-radius:8px;">
+<tr>
+<td width="35%"><strong>Pickup Location</strong></td>
+<td>{booking_data.get('pickupLocation')}</td>
+</tr>
 
-            <p><strong>Preferred Pickup Date:</strong> {booking_data.get('preferredPickupDate')}</p>
-            <p><strong>Preferred Delivery Date:</strong> {booking_data.get('deliveryDate')}</p>
+<tr>
+<td><strong>Pickup Address</strong></td>
+<td>{booking_data.get('pickupAddress')}</td>
+</tr>
+</table>
 
-        </body>
-        </html>
-        """
+<br>
+
+<h3 style="color:#ff6b35;">
+Drop Details
+</h3>
+
+<table width="100%" cellpadding="8" cellspacing="0"
+style="background:#fafafa;border-radius:8px;">
+<tr>
+<td width="35%"><strong>Drop Location</strong></td>
+<td>{booking_data.get('dropOffLocation')}</td>
+</tr>
+
+<tr>
+<td><strong>Drop Address</strong></td>
+<td>{booking_data.get('dropOffAddress')}</td>
+</tr>
+</table>
+
+<br>
+
+<h3 style="color:#ff6b35;">
+Schedule
+</h3>
+
+<table width="100%" cellpadding="8" cellspacing="0"
+style="background:#fafafa;border-radius:8px;">
+<tr>
+<td width="35%"><strong>Pickup Date</strong></td>
+<td>{booking_data.get('preferredPickupDate')}</td>
+</tr>
+
+<tr>
+<td><strong>Delivery Date</strong></td>
+<td>{booking_data.get('deliveryDate')}</td>
+</tr>
+</table>
+
+<br>
+
+<h3 style="color:#ff6b35;">
+Baggage Information
+</h3>
+
+<table width="100%" cellpadding="8" cellspacing="0"
+style="background:#fafafa;border-radius:8px;">
+<tr>
+<td width="35%"><strong>Number Of Bags</strong></td>
+<td>{booking_data.get('numberOfBags')}</td>
+</tr>
+</table>
+
+<div
+style="
+margin-top:30px;
+padding-top:20px;
+border-top:1px solid #e5e5e5;
+font-size:13px;
+color:#666666;
+text-align:center;
+"
+>
+This inquiry was submitted from the BagDrop website.
+<br><br>
+© BagDrop Logistics
+</div>
+
+</td>
+</tr>
+
+</table>
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>
+"""
 
         response = requests.post(
             "https://api.resend.com/emails",
@@ -63,7 +203,7 @@ def send_booking_email(booking_data):
             json={
                 "from": "BagDrop <booking@bagdrop.co>",
                 "to": ["info@bagdrop.co"],
-                "subject": f"New Booking Inquiry - {booking_data.get('fullName')}",
+               "subject": f"🎒 New Booking Inquiry - {booking_data.get('fullName')}"
                 "html": html
             }
         )
