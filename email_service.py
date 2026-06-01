@@ -4,15 +4,12 @@ import requests
 RESEND_API_KEY = os.getenv("RESEND_API_KEY")
 
 def send_booking_email(booking_data):
-    """
-    Send Booking Inquiry Email using Resend
-    """
 
     try:
 
         html = f"""
         <html>
-        <body style="font-family:Arial,sans-serif">
+        <body style="font-family:Arial,sans-serif; line-height:1.6;">
 
             <h2 style="color:#ea580c;">
                 🎒 New BagDrop Booking Inquiry
@@ -22,35 +19,36 @@ def send_booking_email(booking_data):
 
             <h3>Customer Details</h3>
 
-            <p><strong>Name:</strong> {booking_data.get('name')}</p>
+            <p><strong>Name:</strong> {booking_data.get('fullName')}</p>
             <p><strong>Phone:</strong> {booking_data.get('phone')}</p>
             <p><strong>Email:</strong> {booking_data.get('email')}</p>
 
             <hr>
 
-            <h3>Travel Details</h3>
+            <h3>Pickup Details</h3>
 
-            <p><strong>Airport:</strong> {booking_data.get('airport')}</p>
-            <p><strong>Flight Number:</strong> {booking_data.get('flightNumber')}</p>
+            <p><strong>Pickup Location:</strong> {booking_data.get('pickupLocation')}</p>
+            <p><strong>Pickup Address:</strong> {booking_data.get('pickupAddress')}</p>
 
             <hr>
 
-            <h3>Pickup & Delivery</h3>
+            <h3>Drop Details</h3>
 
-            <p><strong>Pickup Location:</strong> {booking_data.get('pickupLocation')}</p>
-            <p><strong>Drop Location:</strong> {booking_data.get('dropLocation')}</p>
+            <p><strong>Drop Location:</strong> {booking_data.get('dropOffLocation')}</p>
+            <p><strong>Drop Address:</strong> {booking_data.get('dropOffAddress')}</p>
 
             <hr>
 
             <h3>Baggage Details</h3>
 
-            <p><strong>Number of Bags:</strong> {booking_data.get('bags')}</p>
+            <p><strong>Number of Bags:</strong> {booking_data.get('numberOfBags')}</p>
 
             <hr>
 
-            <h3>Additional Message</h3>
+            <h3>Schedule</h3>
 
-            <p>{booking_data.get('message')}</p>
+            <p><strong>Preferred Pickup Date:</strong> {booking_data.get('preferredPickupDate')}</p>
+            <p><strong>Preferred Delivery Date:</strong> {booking_data.get('deliveryDate')}</p>
 
         </body>
         </html>
@@ -65,18 +63,19 @@ def send_booking_email(booking_data):
             json={
                 "from": "BagDrop <booking@bagdrop.co>",
                 "to": ["info@bagdrop.co"],
-                "subject": f"New Booking Inquiry - {booking_data.get('name')}",
+                "subject": f"New Booking Inquiry - {booking_data.get('fullName')}",
                 "html": html
             }
         )
 
         if response.status_code in [200, 201]:
-            print("✅ Booking email sent successfully")
+            print("Booking email sent successfully")
             return True
 
-        print("❌ Resend Error:", response.text)
+        print("Resend Error:", response.text)
         return False
 
     except Exception as e:
-        print("❌ Error sending booking email:", str(e))
+        print("Error sending booking email:", str(e))
         return False
+
