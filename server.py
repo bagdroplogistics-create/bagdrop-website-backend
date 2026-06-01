@@ -9,11 +9,16 @@ app = FastAPI()
 # CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "https://bagdrop-website.vercel.app",
+        "https://www.bagdrop.co",
+        "https://bagdrop.co"
+    ],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
 )
+
 
 
 class BookingRequest(BaseModel):
