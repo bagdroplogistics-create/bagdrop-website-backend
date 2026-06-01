@@ -58,7 +58,7 @@ def send_booking_email(booking_data):
         margin-bottom:15px;
         "
         >
-        🎒 New Booking Inquiry Received
+        🧳 New Booking Inquiry Received
         </h2>
         
         <div
@@ -178,7 +178,7 @@ def send_booking_email(booking_data):
         >
         This inquiry was submitted from the BagDrop website.
         <br><br>
-        © BagDrop Logistics
+        © BagDrop Logistics Solutions Pvt. Ltd.
         </div>
         
         </td>
@@ -203,7 +203,7 @@ def send_booking_email(booking_data):
             json={
                 "from": "BagDrop <booking@bagdrop.co>",
                 "to": ["info@bagdrop.co"],
-               "subject": f"🎒 New Booking Inquiry - {booking_data.get('fullName')}",
+               "subject": f"🧳 New Booking Inquiry - {booking_data.get('fullName')}",
                 "html": html
             }
         )
