@@ -6,16 +6,17 @@ from email_service import send_booking_email
 
 app = FastAPI()
 
-# CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://bagdrop-website.vercel.app",
+        "http://bagdrop.co",
+        "https://bagdrop.co",
+        "http://www.bagdrop.co",
         "https://www.bagdrop.co",
-        "https://bagdrop.co"
+        "https://bagdrop-website.vercel.app"
     ],
-    allow_credentials=True,
-    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_credentials=False,
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 
